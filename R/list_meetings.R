@@ -1,3 +1,11 @@
+#' Title
+#'
+#' @param user_id the email or user id of your account
+#'
+#' @return a tibble
+#' @export
+#'
+
 list_meetings <- function(user_id){
 
   meetings <- httr::GET(
