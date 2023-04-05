@@ -1,7 +1,5 @@
 list_meetings <- function(user_id){
 
-  user_id <- "marcelocamacho.ufpa@gmail.com"
-
   meetings <- httr::GET(
     paste0('https://api.zoom.us/v2/users/',user_id,'/meetings'),
     httr::add_headers(authorization = paste("Bearer",Sys.getenv("ZOOM_API")))
