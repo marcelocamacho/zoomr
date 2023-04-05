@@ -15,15 +15,25 @@ list_meetings <- function(user_id){
   ## Testando o objeto meetings
    mensagem <- httr::content(meetings)$message
 
+  # existing_meetings <- meetings %>%
+  #   httr::content() %>%
+  #   purrr::pluck("meetings") %>%
+  #   purrr::map(unlist,recursive = TRUE) %>%
+  #   purrr::map_dfr(tibble::enframe, .id = "order") %>%
+  #   tidyr::pivot_wider(
+  #     names_from = name,
+  #     values_from = value, names_repair = "unique"
+  #   )
+
+  ## Forma menos verbosa, mas não é add o campo 'order'
   existing_meetings <- meetings %>%
-    httr::content() %>%
+    httr::content(simplifyDataFrame = TRUE) %>%
     purrr::pluck("meetings") %>%
-    purrr::map(unlist,recursive = TRUE) %>%
-    purrr::map_dfr(tibble::enframe, .id = "order") %>%
-    tidyr::pivot_wider(
-      names_from = name,
-      values_from = value, names_repair = "unique"
-    )
+    tibble::as_tibble()
+
+  if(nrow(existing_meetings) == 0){
+    usethis::ui_stop("No meetings found.")
+  }
 
   existing_meetings
 }
