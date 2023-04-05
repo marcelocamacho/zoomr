@@ -18,4 +18,5 @@ Imports:
     httr,
     magrittr,
     purrr,
+    tibble,
     tidyr
