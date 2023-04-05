@@ -1,0 +1,82 @@
+## Instalação de pacotes básicos
+install.packages('devtools')
+install.packages('usethis')
+devtools::install_github('hadley/devtools')
+
+## Navegue até o diretório desejado para criação do seu pacote
+setwd('~/desenvolvimento/')
+usethis::create_package('zoomr')
+
+install.packages('git2r')
+## Abra o novo ambiente e adicione no Git
+usethis::use_git()
+# Selecione 3 e depois 1 para reiniciar o ambiente
+
+## Configurando o gitHub
+# Tente configurar e criar um novo repositório com o comando
+usethis::use_github("marcelocamacho")
+#Se falhar é porquê existem informações necessárias para autenticação com a plataforma que não foram reconhecidas pelo ambiente
+#Para ter certeza execute o comando:
+usethis::git_sitrep()
+# Faça a autenticação e gere um token com o comando
+usethis::create_github_token()
+# Armazene a configuração com o comando:
+gitcreds::gitcreds_set()
+# Alterando para a branch "main"
+usethis::git_default_branch_configure("main")
+#Alterando o protocolo para "ssh"
+usethis::use_git_protocol("ssh")
+## Validando novamente a configuração:
+usethis::git_sitrep()
+#Se estiver tudo OK crie o novo repositório
+usethis::use_github()
+## Criar o arquivo README
+usethis::use_readme_rmd()
+## Cria o arquivo de licença
+usethis::use_mit_license()
+# Essa é uma boa hora para commitar os novos arquivos
+
+## Criando a primeira função do pacote
+usethis::use_r("create_meeting")
+
+## Criando o arquivo de testes
+usethis::use_testthat()
+
+## Agora basta usar a função para criar o teste para o arquivo que está aberto/sendo editado.
+usethis::use_test()
+
+## OK agora vá para o arquivo R/create_meeting.R e add a sua função.
+
+## Criando outra função
+usethis::use_r('list_meetings')
+usethis::use_test()
+# Vá ao arquivo 'R/list_meetings' e escreva a sua função.
+
+# Para criar um arquivo com senhas e tokens é recomendável a criação de um arquivo de ambiente
+usethis::edit_r_environ(scope = "project")
+
+## Caso use o pipe no código R (tidyverse), será necessário inclui-lo com os comandos
+usethis::use_pipe()
+devtools::document()
+
+
+## Não esquecer de incluir os pacotes dos quais o código dependa:
+usethis::use_package('purrr')
+usethis::use_package('tidyr')
+usethis::use_package('httr')
+
+## para testar o pacote em desenvolvimento é importante reiniciar o RStudio e recarregar os pacotes com o comando
+devtools::load_all(".")
+
+## Escreva os testes e caso precise executar uma checagem  global use
+devtools::check()
+
+
+
+
+
+
+
+
+
+
